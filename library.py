@@ -22,3 +22,21 @@ class UnionFind:
 
     def same_check(self, x, y):
         return self.find(x) == self.find(y)
+
+    
+# mod. m での a の逆元 a^{-1} を計算する
+# b * a^{-1} (mod m)を計算したい場合はb * modinv(a, m) % m
+def modinv(a, m):
+    b = m
+    u = 1
+    v = 0
+    while b:
+        t = int(a / b)
+        a -= t * b
+        a, b = b, a
+        u -= t * v
+        u, v = v, u
+    u %= m
+    if u < 0:
+        u += m
+    return u
