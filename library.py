@@ -40,3 +40,41 @@ def modinv(a, m):
     if u < 0:
         u += m
     return u
+
+
+# 高速な累乗計算
+def pow_k(x, n):
+    """
+    O(log n)
+    """
+    if n == 0:
+        return 1
+
+    K = 1
+    while n > 1:
+        if n % 2 != 0:
+            K *= x
+        x *= x
+        n //= 2
+
+    return K * x
+    
+    
+# 途中計算でmodを計算する高速な累乗計算
+def pow_k_mod(x, n, m):
+    """
+    O(log n)
+    """
+    if n == 0:
+        return 1
+
+    K = 1
+    while n > 1:
+        if n % 2 != 0:
+            K *= x
+            K %= m
+        x *= x
+        x %= m
+        n //= 2
+
+    return (K * x) % m
