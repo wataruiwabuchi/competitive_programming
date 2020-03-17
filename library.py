@@ -41,6 +41,23 @@ class BIT:
             i -= i & (-i)
         return t
 
+
+# 区間に対する和を実装したBIT
+class BIT_LR:
+    def __init__(self, n):
+        self.bit0 = BIT(n)
+        self.bit1 = BIT(n)
+        
+    def update(self, l, r, x): # state[i] += x
+        self.bit0.update(l, -x * (l - 1))
+        self.bit1.update(l, x)
+        self.bit0.update(r + 1, x * r)
+        self.bit1.update(r + 1, -x)
+        return
+        
+    def query(self, i):
+        return self.bit0.query(i) + self.bit1.query(i) * i
+
     
 # mod. m での a の逆元 a^{-1} を計算する
 # b * a^{-1} (mod m)を計算したい場合はb * modinv(a, m) % m
