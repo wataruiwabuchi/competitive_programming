@@ -22,6 +22,24 @@ class UnionFind:
 
     def same_check(self, x, y):
         return self.find(x) == self.find(y)
+    
+    
+class BIT:
+    def __init__(self, n):
+        self.state = [0] * (n + 1)
+        
+    def update(self, i, x): # state[i] += x
+        while i <= n:
+            self.state[i] += x
+            i += i & (-i)
+        return
+        
+    def query(self, i):
+        t = 0
+        while i > 0:
+            t += self.state[i]
+            i -= i & (-i)
+        return t
 
     
 # mod. m での a の逆元 a^{-1} を計算する
