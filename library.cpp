@@ -32,3 +32,22 @@ struct UnionFind
     }
 };
 
+long long mod_pow(long long _x, long long _n)
+{
+    long long ret = 1;
+    while (0 < _n)
+    {
+        if ((_n % 2) == 0)
+        {
+            _x = (_x * _x) % MOD;
+            _n >>= 1;
+        }
+        else
+        {
+            ret = (ret * _x) % MOD;
+            --_n;
+        }
+    }
+    return ret;
+}
+
