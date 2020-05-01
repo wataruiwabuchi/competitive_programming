@@ -52,14 +52,68 @@ long long mod_pow(long long _x, long long _n)
 }
 
 // mod. m での a の逆元 a^{-1} を計算する
-long long modinv(long long a, long long m) {
+long long modinv(long long a, long long m)
+{
     long long b = m, u = 1, v = 0;
-    while (b) {
+    while (b)
+    {
         long long t = a / b;
-        a -= t * b; swap(a, b);
-        u -= t * v; swap(u, v);
+        a -= t * b;
+        swap(a, b);
+        u -= t * v;
+        swap(u, v);
     }
     u %= m;
-    if (u < 0) u += m;
+    if (u < 0)
+        u += m;
     return u;
 }
+
+// 日付計算のためのクラス
+class Date
+{
+private:
+    int year, month, day;
+    int lastday_of_month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    bool JudgeLeapYear(int y)
+    {
+        if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+            return true;
+        return false;
+    }
+
+public:
+    Date(int y, int m, int d)
+    {
+        year = y;
+        month = m;
+        day = d;
+    }
+
+    void Add(int dy, int dm, int dd)
+    {
+        year += dy + (month + dm - 1) / 12;
+        month = (month + dm - 1) % 12 + 1;
+        day += dd;
+
+        int lastday = lastday_of_month[month - 1];
+        lastday += (month == 2) * JudgeLeapYear(year);
+        while (day > lastday)
+        {
+            dd = dd - (lastday - day) - 1;
+            day = 1;
+            year += (month + 1) / 13;
+            month = (month + 1) % 13 + (month + 1) / 13;
+
+            lastday = lastday_of_month[month - 1];
+            lastday += (month == 2) * JudgeLeapYear(year);
+        }
+    }
+
+    int Year() { return year; }
+
+    int Month() { return month; }
+
+    int Day() { return day; }
+};
