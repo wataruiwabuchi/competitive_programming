@@ -1,0 +1,18 @@
+{
+    "name": "Go",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-azuretools.vscode-docker",
+                "ms-vscode-remote.remote-containers",
+                "GitHub.copilot",
+                "GitHub.copilot-chat",
+                "golang.go"
+            ]
+        }
+    }
+}
